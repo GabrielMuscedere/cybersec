@@ -18,7 +18,6 @@ Concettualmente, l'attacco è del tutto analogo alle iniezioni di codice di sist
 ### 2. Le Sfaccettature Tecniche
 
 #### A. Login Bypass
-##### Il Preambolo Discorsivo
 La forma più semplice e immediata di SQL Injection si riscontra nelle schermate di autenticazione. Di norma, l'applicazione interroga il database chiedendo se esiste un utente che possiede contemporaneamente l'email e la password inserite nel form. Se il database restituisce almeno una riga corrispondente, l'applicazione considera le credenziali valide e concede l'accesso.
 
 Se inseriamo caratteri maligni che forzano una tautologia (una condizione logica sempre vera), andiamo a rompere questo controllo. Facciamo sì che la query restituisca un risultato positivo a prescindere dalla conoscenza della password reale. Per fare questo, utilizziamo anche i commenti di riga SQL per far ignorare al database tutto ciò che segue la nostra iniezione (ovvero il controllo sulla password).
@@ -48,7 +47,6 @@ SELECT * FROM users WHERE email = '' or 1=1 -- ' AND password = ''
 ---
 
 #### B. Union-Based SQL Injections
-##### Il Preambolo Discorsivo
 Quando la nostra iniezione non avviene in un punto di controllo logico, ma all'interno di una query che seleziona dati che vengono poi **mostrati a schermo all'utente** (ad esempio, la pagina di visualizzazione di un articolo di un blog), possiamo fare molto più di un login bypass: possiamo esfiltrare l'intero database.
 
 La tecnica fa perno sull'operatore SQL `UNION`. Immagina l'operatore `UNION` come un collante che permette di accodare i risultati di una seconda query (scritta interamente da noi) ai risultati della query originale dell'applicazione. Se la query originale mostrava a schermo un post del blog, la query iniettata tramite `UNION` mostrerà nello stesso identico spazio i dati riservati estratti da altre tabelle (come le password degli utenti).
@@ -135,7 +133,6 @@ Queste iniezioni vengono chiamate **Blind SQL Injections (Iniezioni Cieche)**. S
 ### 2. Le Sfaccettature Tecniche
 
 #### A. Boolean-Based Blind SQLi
-##### Il Preambolo Discorsivo
 Immagina di voler indovinare una password segreta memorizzata nel database ma di poter fare solo domande a cui l'applicazione risponderà con "Sì" o "No". Potresti chiedere: *"La password comincia con la lettera 'a'?"*. Se la pagina si carica normalmente (Sì), hai trovato la prima lettera. Se la pagina restituisce un errore generico o manca un pezzo di testo (No), provi con la 'b', e così via. Trovata la prima lettera, passi alla seconda: *"La seconda lettera è una 'a'?"*. 
 
 Questo processo di indagine prende il nome di **Boolean-Based Blind SQLi**. Per automatizzarlo, dobbiamo costruire delle condizioni logiche iniettate che controllino la veridicità delle nostre ipotesi e osservare la risposta dell'oracolo applicativo.
@@ -173,7 +170,6 @@ Per esaminare la stringa segreta carattere per carattere, si utilizzano principa
 ---
 
 #### B. Time-Based Blind SQLi
-##### Il Preambolo Discorsivo
 Ci sono casi estremi in cui l'applicazione non mostra alcuna differenza visiva o strutturale nella risposta, indipendentemente dal fatto che la query SQL sia vera o falsa. L'oracolo visivo è completamente silente. 
 
 Tuttavia, esiste un canale laterale fisico che non può essere nascosto facilmente: il **tempo di esecuzione**. Possiamo chiedere al database di eseguire un'operazione pesante e lenta, come la funzione `sleep()`, solo se la nostra ipotesi è vera. Se la pagina web impiega 5 o più secondi per caricarsi, significa che la nostra ipotesi era corretta; se risponde istantaneamente, l'ipotesi era errata.
