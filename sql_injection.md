@@ -222,7 +222,7 @@ Il principio fondamentale della sicurezza applicativa contro le SQL Injection è
 
 ---
 
-## Toolkit d'Esame: Script Python d'Automazione (USB)
+## Toolkit d'Esame: Script Python d'Automazione
 
 In questa sezione trovi i due script Python pronti per essere eseguiti d'esame. Sono completamente parametrizzati: per utilizzarli, ti basterà configurare le variabili all'inizio dello script.
 
