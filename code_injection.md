@@ -130,7 +130,7 @@ Nelle sfide pratiche, molti server bloccano o disabilitano funzioni di sistema c
 
 ---
 
-## 📂 Sezione 4: Script di Supporto Pronti all'uso (da USB)
+## 📂 Sezione 4: Script di Supporto Pronti all'uso
 
 Di seguito sono riportati gli script in Python da memorizzare sulla tua chiavetta USB per automatizzare le operazioni durante l'esame.
 
